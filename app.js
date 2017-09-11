@@ -48,7 +48,7 @@ app.get("/", function(req, res) {
     res.render("index");
 });
 
-app.post("/", function(req, res){
+app.post("/upload", function(req, res){
     var name = req.body.name;
     var URL = req.body.URL;
     var fileGroup = req.body.fileGroup;
@@ -57,7 +57,7 @@ app.post("/", function(req, res){
         if(err){
             console.log(err);
         } else {
-            res.redirect("/");
+            res.redirect("/upload");
         }
     });
 });
@@ -82,12 +82,24 @@ app.get("/logout", function(req, res){
     res.redirect("/");
 });
 
-app.get("/homework", function(req, res){
-    res.render("homework");
+app.get("/homework", function(req, res) {
+    File.find({}, function(err, allFiles){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("homework", {File: allFiles});
+        }
+    });
 });
 
-app.get("classwork", function(req, res){
-    res.render("classwork");
+app.get("/classwork", function(req, res) {
+    File.find({}, function(err, allFiles){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("classwork", {File: allFiles});
+        }
+    });
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
