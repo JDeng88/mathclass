@@ -1,0 +1,12 @@
+<% include partials/header.ejs %>
+<% File.forEach(function(File){ %>
+  <%  if (File.fileGroup === "homework") { %>
+    <a href="<%= File.URL %>">
+        <span>
+            <h3> <%= File.name %> </h3>
+        </span>
+    </a>
+  <%  } %>
+<% }) %>
+
+<% include partials/footer.ejs %>
