@@ -33,7 +33,8 @@ function isLoggedIn(req, res, next){
     res.redirect("/");
 }
 //Mongoose
-mongoose.connect("mongodb://localhost/files");
+//mongoose.connect("mongodb://localhost/files");
+mongoose.connect("mongodb://RiceinPot:Whatpassword69@ds133094.mlab.com:33094/mrdengsmathclass");
 
 var fileSchema =  new mongoose.Schema({
     name: String,
@@ -102,6 +103,12 @@ app.get("/classwork", function(req, res) {
     });
 });
 
+User.register(new User({username: "yongwen28"}), "Teacher@1996", function(err, user){
+    if(err){
+        console.log(err);
+    }
+    passport.authenticate("local");
+});
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Server is up.");
 }); 
