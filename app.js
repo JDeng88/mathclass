@@ -11,7 +11,7 @@ var User = require("./models/user");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({entended: true}));
-
+console.log(process.env.DATABASEURL);
 //Authentication
 app.use(require("express-session")({
     secret: "This is a really interesting secret",
@@ -34,7 +34,8 @@ function isLoggedIn(req, res, next){
 }
 //Mongoose
 //mongoose.connect("mongodb://localhost/files");
-mongoose.connect("mongodb://RiceinPot:Whatpassword69@ds133094.mlab.com:33094/mrdengsmathclass");
+
+//mongoose.connect(process.env.DATABASEURL);
 
 var fileSchema =  new mongoose.Schema({
     name: String,
@@ -109,6 +110,8 @@ User.register(new User({username: "yongwen28"}), "Teacher@1996", function(err, u
     }
     passport.authenticate("local");
 });
+
+
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Server is up.");
 }); 
