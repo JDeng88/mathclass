@@ -103,13 +103,6 @@ app.get("/classwork", function(req, res) {
     });
 });
 
-User.register(new User({username: "yongwen28"}), "Teacher@1996", function(err, user){
-    if(err){
-        console.log(err);
-    }
-    passport.authenticate("local");
-});
-
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Server is up.");
