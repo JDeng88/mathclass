@@ -31,6 +31,14 @@ function isLoggedIn(req, res, next){
     }
     res.redirect("/");
 }
+
+function loginRedirect(req, res, next){
+    if (req.isAuthenticated()){
+        res.redirect("/upload");
+    }
+    return next();
+}
+
 //Mongoose
 //mongoose.connect("mongodb://localhost/files");
 
@@ -63,7 +71,7 @@ app.post("/upload", function(req, res){
     });
 });
 
-app.get("/login", function(req, res){
+app.get("/login", loginRedirect, function(req, res){
     res.render("login");
 });
 
