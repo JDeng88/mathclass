@@ -34,9 +34,9 @@ function isLoggedIn(req, res, next){
 
 function loginRedirect(req, res, next){
     if (req.isAuthenticated()){
-        res.redirect("/upload");
+        return res.redirect("/upload");
     }
-    return next();
+    next();
 }
 
 //Mongoose
