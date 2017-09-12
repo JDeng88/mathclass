@@ -34,7 +34,7 @@ function isLoggedIn(req, res, next){
 //Mongoose
 //mongoose.connect("mongodb://localhost/files");
 
-//mongoose.connect(process.env.DATABASEURL);
+mongoose.connect(process.env.DATABASEURL);
 
 var fileSchema =  new mongoose.Schema({
     name: String,
