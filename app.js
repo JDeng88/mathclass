@@ -11,7 +11,6 @@ var User = require("./models/user");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({entended: true}));
-console.log(process.env.DATABASEURL);
 //Authentication
 app.use(require("express-session")({
     secret: "This is a really interesting secret",
