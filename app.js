@@ -6,12 +6,10 @@ var bodyParser = require("body-parser");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
-var flash = require("connect-flash");
 var User = require("./models/user");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
-app.use(flash());
 //Authentication
 app.use(require("express-session")({
     secret: "This is a really interesting secret",
@@ -41,11 +39,6 @@ function loginRedirect(req, res, next){
     }
     next();
 }
-
-app.use(function(req, res, next){
-    res.locals.message = req.flash("error");
-    next();
-});
 
 
 //Mongoose
@@ -82,13 +75,11 @@ app.post("/upload", function(req, res){
 
 app.get("/login", loginRedirect, function(req, res){
     res.render("login");
-    req.flash("error", "Please log in");
 });
 
 app.post("/login", passport.authenticate("local", {
     sucessRedirect: "/upload",
     failureRedirect: "/login",
-    failureFlash: true
 }) , function(req, res){
     res.redirect("/upload");
 });

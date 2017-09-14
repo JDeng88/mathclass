@@ -1,18 +1,27 @@
 <% include partials/header.ejs %>
-    <div class="fileUpload">
+    <div class="form">
         <form action="/upload" method="POST" id="form">
             <div class="form-group">
-                <input type="text" placeholder="File Name" name="name">
+                <label for="fileName"> File Name </label>
+                <input id="fileName" type="text" placeholder="File Name" name="name">
             </div>
             <div class="form-group">
-                <input type="text" placeholder="File URL" name="URL">
+                <label for="fileURL"> File URL </label>
+                <input type="text" placeholder="File URL" name="URL" id="fileURL">
             </div>
             <div class="form-group">
-                <input type="radio" name="fileGroup" value="classwork"> Classwork
-                <input type="radio" name="fileGroup" value="homework"> Homework
+                <label for="classwork"> Classwork </label>
+                <input type="radio" name="fileGroup" value="classwork" id="classwork"> 
+                <label for="homework"> Homework </label>
+                <input type="radio" name="fileGroup" value="homework" id="homework"> 
             </div>
-            <button class="btn btn-sucess" type="submit" id="submit"> Submit! </button>
+            <button class="btn btn-primary" type="submit" id="submit"> Submit! </button>
         </form>
-        <h3> <a href="/logout"> Logout Here </a></h3>
+        <br>
+        <div class="form-group">
+            <form action="/logout" method="GET">
+                <button class="btn btn-secondary"> Logout </button>
+            </form>
+        </div>
     </div>
 <% include partials/footer.ejs %>

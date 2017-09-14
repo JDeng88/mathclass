@@ -1,12 +1,29 @@
 <% include partials/header.ejs %>
-<% File.forEach(function(File){ %>
+<table class="table">
+  <thead>
+    <tr>
+      <td> <p> File Name </p> </td>
+      <td> <p> Download Here </p> </td>
+    </tr>
+  </thead>
+  <tbody>
+  <% File.forEach(function(File){ %>
   <%  if (File.fileGroup === "homework") { %>
-    <a href="<%= File.URL %>">
-        <span>
-            <h3> <%= File.name %> </h3>
-        </span>
-    </a>
+    <tr>
+      <td> 
+        <p> <%= File.name %> </p>
+      </td>
+      <td> 
+        <div class="tableForm">
+          <form action="<%= File.URL %>">
+            <button class="btn btn-primary filebtn" type="submit"> Download </button>
+          </form>
+        </div>
+      </td>
+    </tr>
+  </tbody>
   <%  } %>
 <% }) %>
+</table>
 
 <% include partials/footer.ejs %>
