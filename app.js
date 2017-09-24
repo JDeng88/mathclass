@@ -7,6 +7,9 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
 var User = require("./models/user");
+var MongoClient = require('mongodb').MongoClient,
+  f = require('util').format,
+  assert = require('assert');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
@@ -44,12 +47,14 @@ function loginRedirect(req, res, next){
 //Mongoose
 //mongoose.connect("mongodb://localhost/files");
 
-mongoose.connect(process.env.DATABASEURL);
+var DATABASEURL = process.env.DATABASEURL || "mongodb://TestinPot:Ayylmao69@ds133104.mlab.com:33104/testingdatabase";
+mongoose.connect(DATABASEURL, {useMongoClient: true});
 
 var fileSchema =  new mongoose.Schema({
     name: String,
     URL: String,
-    fileGroup: String
+    fileGroup: String,
+    fileClass: String
 });
 
 var File = mongoose.model("File", fileSchema);
@@ -63,7 +68,8 @@ app.post("/upload", function(req, res){
     var name = req.body.name;
     var URL = req.body.URL;
     var fileGroup = req.body.fileGroup;
-    var newFile = {name: name, URL: URL, fileGroup: fileGroup};
+    var fileClass = req.body.fileClass;
+    var newFile = {name: name, URL: URL, fileGroup: fileGroup, fileClass: fileClass};
     File.create(newFile, function(err, createdFile){
         if(err){
             console.log(err);
@@ -93,24 +99,26 @@ app.get("/logout", function(req, res){
     res.redirect("/");
 });
 
-app.get("/homework", function(req, res) {
+app.get("/:class/homework", function(req, res) {
+    var classFile = String(req.params.class) + "homework";
     File.find({}, function(err, allFiles){
         if(err){
             console.log(err);
         } else {
-            res.render("homework", {File: allFiles});
+            res.render(classFile, {File: allFiles});
         }
     });
 });
 
-app.get("/classwork", function(req, res) {
+app.get("/:class/classwork", function(req, res) {
+    var classFile = String(req.params.class) + "classwork";
     File.find({}, function(err, allFiles){
         if(err){
             console.log(err);
         } else {
-            res.render("classwork", {File: allFiles});
+            res.render(classFile, {File: allFiles});
         }
-    });
+    }); 
 });
 
 

@@ -1,0 +1,30 @@
+<% include partials/header.ejs %>
+<center><h1> MPN11 Classwork Page </h1></center>
+<table class="table">
+  <thead>
+    <tr>
+      <td> <p> File Name </p> </td>
+      <td> <p> Download Here </p> </td>
+    </tr>
+  </thead>
+  <tbody>
+  <% File.forEach(function(File){ %>
+  <%  if (File.fileGroup === "classwork" && File.fileClass === "MPN11") { %>
+    <tr>
+      <td> 
+        <p> <%= File.name %> </p>
+      </td>
+      <td> 
+        <div class="tableForm">
+          <form action="<%= File.URL %>">
+            <button class="btn btn-primary filebtn" type="submit"> Download </button>
+          </form>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <%  } %>
+<% }) %>
+</table>
+
+<% include partials/footer.ejs %>
