@@ -47,7 +47,7 @@ function loginRedirect(req, res, next){
 //Mongoose
 //mongoose.connect("mongodb://localhost/files");
 
-var DATABASEURL = process.env.DATABASEURL
+var DATABASEURL = process.env.DATABASEURL;
 mongoose.connect(DATABASEURL, {useMongoClient: true});
 
 var fileSchema =  new mongoose.Schema({
